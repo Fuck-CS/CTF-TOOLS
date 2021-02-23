@@ -1193,54 +1193,52 @@ END
 			#
 			# CT_COMP_TOOLS is not set
 			;;
-3)
-clear
+		3)
+			clear
 
-mkdir -p src
-[ -e crosstool-ng ] || git clone --depth 1 https://github.com/crosstool-ng/crosstool-ng.git
-cd crosstool-ng
-./bootstrap
-./configure --enable-local
-make -j $(nproc)
-make install
-cp ../config .config
+			mkdir -p src
+			[ -e crosstool-ng ] || git clone --depth 1 https://github.com/crosstool-ng/crosstool-ng.git
+			cd crosstool-ng
+			./bootstrap
+			./configure --enable-local
+			make -j $(nproc)
+			make install
+			cp ../config .config
 
-SAMPLES="alphaev56-unknown-linux-gnu alphaev67-unknown-linux-gnu arm-bare_newlib_cortex_m3_nommu-eabi arm-cortex_a15-linux-gnueabi arm-cortexa5-linux-uclibcgnueabihf arm-cortex_a8-linux-gnueabi arm-cortexa9_neon-linux-gnueabihf armeb-unknown-eabi armeb-unknown-linux-gnueabi armeb-unknown-linux-uclibcgnueabi arm-unknown-eabi arm-unknown-linux-gnueabi arm-unknown-linux-uclibcgnueabi arm-unknown-linux-uclibcgnueabihf armv6-rpi-linux-gnueabi avr32-unknown-none bfin-unknown-linux-uclibc i586-geode-linux-uclibc i586-mingw32msvc,i686-none-linux-gnu i686-nptl-linux-gnu i686-unknown-mingw32 m68k-unknown-elf m68k-unknown-uclinux-uclibc mips64el-n32-linux-uclibc mips64el-n64-linux-uclibc mips-ar2315-linux-gnu mipsel-sde-elf mipsel-unknown-linux-gnu mips-malta-linux-gnu mips-unknown-elf mips-unknown-linux-uclibc nios2-elf-mingw32 powerpc-405-linux-gnu powerpc64-unknown-linux-gnu powerpc-860-linux-gnu powerpc-e300c3-linux-gnu powerpc-e500v2-linux-gnuspe powerpc-unknown-linux-gnu powerpc-unknown-linux-uclibc powerpc-unknown_nofpu-linux-gnu s390-ibm-linux-gnu s390x-ibm-linux-gnu sh4-unknown-linux-gnu sparc-unknown-linux-gnu x86_64-unknown-linux-gnu x86_64-unknown-linux-uclibc x86_64-unknown-mingw32"
+			SAMPLES="alphaev56-unknown-linux-gnu alphaev67-unknown-linux-gnu arm-bare_newlib_cortex_m3_nommu-eabi arm-cortex_a15-linux-gnueabi arm-cortexa5-linux-uclibcgnueabihf arm-cortex_a8-linux-gnueabi arm-cortexa9_neon-linux-gnueabihf armeb-unknown-eabi armeb-unknown-linux-gnueabi armeb-unknown-linux-uclibcgnueabi arm-unknown-eabi arm-unknown-linux-gnueabi arm-unknown-linux-uclibcgnueabi arm-unknown-linux-uclibcgnueabihf armv6-rpi-linux-gnueabi avr32-unknown-none bfin-unknown-linux-uclibc i586-geode-linux-uclibc i586-mingw32msvc,i686-none-linux-gnu i686-nptl-linux-gnu i686-unknown-mingw32 m68k-unknown-elf m68k-unknown-uclinux-uclibc mips64el-n32-linux-uclibc mips64el-n64-linux-uclibc mips-ar2315-linux-gnu mipsel-sde-elf mipsel-unknown-linux-gnu mips-malta-linux-gnu mips-unknown-elf mips-unknown-linux-uclibc nios2-elf-mingw32 powerpc-405-linux-gnu powerpc64-unknown-linux-gnu powerpc-860-linux-gnu powerpc-e300c3-linux-gnu powerpc-e500v2-linux-gnuspe powerpc-unknown-linux-gnu powerpc-unknown-linux-uclibc powerpc-unknown_nofpu-linux-gnu s390-ibm-linux-gnu s390x-ibm-linux-gnu sh4-unknown-linux-gnu sparc-unknown-linux-gnu x86_64-unknown-linux-gnu x86_64-unknown-linux-uclibc x86_64-unknown-mingw32"
 
-mkdir -p ../x-tools
-for sample in $SAMPLES
-do
-	../build-sample.sh $sample || echo "$sample" >> ../x-tools/broken
-	./ct-ng clean
-done
-cd ..
+			mkdir -p ../x-tools
+			for sample in $SAMPLES; do
+				../build-sample.sh $sample || echo "$sample" >>../x-tools/broken
+				./ct-ng clean
+			done
+			cd ..
 
-mkdir -p bin
-cd bin
-for sample in $SAMPLES
-do
-	ln -sf ../x-tools/$sample/bin/* .
-	rm -f '*'
-done
-cd ..
-;;
-4)
-clear
+			mkdir -p bin
+			cd bin
+			for sample in $SAMPLES; do
+				ln -sf ../x-tools/$sample/bin/* .
+				rm -f '*'
+			done
+			cd ..
+			;;
+		4)
+			clear
 
-pacman -Syu --noconfirm gperf flex bison help2man gawk ncurses
-;;
-5)
-clear
-apt-get install -y gperf flex bison help2man gawk libncurses5-dev
-;;
-6)
-clear
-[ -e x-tools ] && chmod -R u+w x-tools
-rm -rf crosstools-ng
-;;
-esac
-;;
-17)
+			pacman -Syu --noconfirm gperf flex bison help2man gawk ncurses
+			;;
+		5)
+			clear
+			apt-get install -y gperf flex bison help2man gawk libncurses5-dev
+			;;
+		6)
+			clear
+			[ -e x-tools ] && chmod -R u+w x-tools
+			rm -rf crosstools-ng
+			;;
+		esac
+		;;
+	17)
 		echo "[.17.] -> File comparison "
 		echo -e "${blue}[+] Enter package options ${NC}"
 		echo -e "${blue}**********Choose installation version************${NC}"
@@ -1251,27 +1249,27 @@ esac
 		case $Selects in
 		1)
 			clear
-		wget -O - http://www.bay12games.com/dwarves/df_43_05_linux.tar.bz2 | tar xj
+			wget -O - http://www.bay12games.com/dwarves/df_43_05_linux.tar.bz2 | tar xj
 
-mkdir -p bin
-cat <<END > bin/dwarf_fortress
+			mkdir -p bin
+			cat <<END >bin/dwarf_fortress
 cd $PWD/df_linux
 ./df
 END
-chmod 755 bin/dwarf_fortress
-;;
-2)
-clear
-set -eu -o pipefail
+			chmod 755 bin/dwarf_fortress
+			;;
+		2)
+			clear
+			set -eu -o pipefail
 
-apt-get -y install libasound2:i386 libasyncns0:i386 libatk1.0-0:i386 libc6:i386 libcaca0:i386 libcairo2:i386 libdatrie1:i386 libdbus-1-3:i386 libdrm2:i386 libexpat1:i386 libffi6:i386 libflac8:i386 libfontconfig1:i386 libfreetype6:i386 libgdk-pixbuf2.0-0:i386 libgl1-mesa-glx:i386 libglapi-mesa:i386 libglib2.0-0:i386 libglu1-mesa:i386 libgraphite2-3:i386 libgtk2.0-0:i386 libharfbuzz0b:i386 libjbig0:i386 libjpeg-turbo8:i386 libjson-c2:i386 liblzma5:i386 libncursesw5:i386 libogg0:i386 libpango-1.0-0:i386 libpangocairo-1.0-0:i386 libpangoft2-1.0-0:i386 libpcre3:i386 libpixman-1-0:i386 libpng12-0:i386 libpulse0:i386 libsdl1.2debian:i386 libsdl-image1.2:i386 libsdl-ttf2.0-0:i386 libselinux1:i386 libslang2:i386 libsndfile1:i386 libthai0:i386 libtiff5:i386 libtinfo5:i386 libvorbis0a:i386 libvorbisenc2:i386 libwebp5:i386 libwrap0:i386 libx11-6:i386 libx11-xcb1:i386 libxau6:i386 libxcb1:i386 libxcb-dri2-0:i386 libxcb-dri3-0:i386 libxcb-glx0:i386 libxcb-present0:i386 libxcb-render0:i386 libxcb-shm0:i386 libxcb-sync1:i386 libxcomposite1:i386 libxcursor1:i386 libxdamage1:i386 libxdmcp6:i386 libxext6:i386 libxfixes3:i386 libxi6:i386 libxinerama1:i386 libxrandr2:i386 libxrender1:i386 libxshmfence1:i386 libxxf86vm1:i386 zlib1g:i386
-;;
+			apt-get -y install libasound2:i386 libasyncns0:i386 libatk1.0-0:i386 libc6:i386 libcaca0:i386 libcairo2:i386 libdatrie1:i386 libdbus-1-3:i386 libdrm2:i386 libexpat1:i386 libffi6:i386 libflac8:i386 libfontconfig1:i386 libfreetype6:i386 libgdk-pixbuf2.0-0:i386 libgl1-mesa-glx:i386 libglapi-mesa:i386 libglib2.0-0:i386 libglu1-mesa:i386 libgraphite2-3:i386 libgtk2.0-0:i386 libharfbuzz0b:i386 libjbig0:i386 libjpeg-turbo8:i386 libjson-c2:i386 liblzma5:i386 libncursesw5:i386 libogg0:i386 libpango-1.0-0:i386 libpangocairo-1.0-0:i386 libpangoft2-1.0-0:i386 libpcre3:i386 libpixman-1-0:i386 libpng12-0:i386 libpulse0:i386 libsdl1.2debian:i386 libsdl-image1.2:i386 libsdl-ttf2.0-0:i386 libselinux1:i386 libslang2:i386 libsndfile1:i386 libthai0:i386 libtiff5:i386 libtinfo5:i386 libvorbis0a:i386 libvorbisenc2:i386 libwebp5:i386 libwrap0:i386 libx11-6:i386 libx11-xcb1:i386 libxau6:i386 libxcb1:i386 libxcb-dri2-0:i386 libxcb-dri3-0:i386 libxcb-glx0:i386 libxcb-present0:i386 libxcb-render0:i386 libxcb-shm0:i386 libxcb-sync1:i386 libxcomposite1:i386 libxcursor1:i386 libxdamage1:i386 libxdmcp6:i386 libxext6:i386 libxfixes3:i386 libxi6:i386 libxinerama1:i386 libxrandr2:i386 libxrender1:i386 libxshmfence1:i386 libxxf86vm1:i386 zlib1g:i386
+			;;
 
 		esac
 		;;
 
-		18)
-				echo "[.18.] -> dirb is a dictionary-based web directory scanning tool "
+	18)
+		echo "[.18.] -> dirb is a dictionary-based web directory scanning tool "
 		echo -e "${blue}[+] Enter package options ${NC}"
 
 		echo -e "${blue}**********Choose installation version************${NC}"
@@ -1284,46 +1282,46 @@ apt-get -y install libasound2:i386 libasyncns0:i386 libatk1.0-0:i386 libc6:i386 
 		1)
 			clear
 			mkdir bin
-wget -O dirb.tar.gz https://downloads.sourceforge.net/project/dirb/dirb/2.22/dirb222.tar.gz
-tar -xf dirb.tar.gz
+			wget -O dirb.tar.gz https://downloads.sourceforge.net/project/dirb/dirb/2.22/dirb222.tar.gz
+			tar -xf dirb.tar.gz
 
-chmod -R a+X dirb222/
-cd dirb222
-chmod a+x configure
-./configure
-make
-cp dirb ../bin
+			chmod -R a+X dirb222/
+			cd dirb222
+			chmod a+x configure
+			./configure
+			make
+			cp dirb ../bin
 
-		;;
-2)
-clear
-set -eu -o pipefail
+			;;
+		2)
+			clear
+			set -eu -o pipefail
 
-pacman -Syu --noconfirm --needed curl gnutls
-;;
-3)
-set -eu -o pipefail
+			pacman -Syu --noconfirm --needed curl gnutls
+			;;
+		3)
+			set -eu -o pipefail
 
-apt-get -y install libcurl4-gnutls-dev
+			apt-get -y install libcurl4-gnutls-dev
 
-		;;
-						19)
-				echo "[.19.] -> Catalog blasting tools "
-		echo -e "${blue}[+] Enter package options ${NC}"
-mkdir bin
-git clone --depth 1 https://github.com/maurosoria/dirsearch.git
+			;;
+		19)
+			echo "[.19.] -> Catalog blasting tools "
+			echo -e "${blue}[+] Enter package options ${NC}"
+			mkdir bin
+			git clone --depth 1 https://github.com/maurosoria/dirsearch.git
 
-cd bin
-ln -s ../dirsearch/dirsearch.py .
+			cd bin
+			ln -s ../dirsearch/dirsearch.py .
 
-		;;
+			;;
 		esac
 		;;
 
-		20)
-			clear
-			
-				echo "[.20.] -> dislocker is a tool to decrypt Microsoft’s BitLocker encrypted volumes from Linux or OSX.  "
+	20)
+		clear
+
+		echo "[.20.] -> dislocker is a tool to decrypt Microsoft’s BitLocker encrypted volumes from Linux or OSX.  "
 		echo -e "${blue}[+] Enter package options ${NC}"
 
 		echo -e "${blue}**********Choose installation version************${NC}"
@@ -1336,50 +1334,49 @@ ln -s ../dirsearch/dirsearch.py .
 		1)
 			clear
 			wget -O dislocker.tar.gz https://github.com/Aorimn/dislocker/archive/v0.7.1.tar.gz
-tar xf dislocker.tar.gz
-DISLOCKERDIR=$(ls -d dislocker-*)
-cd $DISLOCKERDIR
+			tar xf dislocker.tar.gz
+			DISLOCKERDIR=$(ls -d dislocker-*)
+			cd $DISLOCKERDIR
 
-cmake .
-make -j $(nproc)
-cd ..
-mkdir bin
-cd bin
-ls -l ../$DISLOCKERDIR/src/
+			cmake .
+			make -j $(nproc)
+			cd ..
+			mkdir bin
+			cd bin
+			ls -l ../$DISLOCKERDIR/src/
 
-ln -s ../$DISLOCKERDIR/src/dislocker-bek .
-ln -s ../$DISLOCKERDIR/src/dislocker-file .
-ln -s ../$DISLOCKERDIR/src/dislocker-fuse .
-ln -s ../$DISLOCKERDIR/src/dislocker-metadata .
+			ln -s ../$DISLOCKERDIR/src/dislocker-bek .
+			ln -s ../$DISLOCKERDIR/src/dislocker-file .
+			ln -s ../$DISLOCKERDIR/src/dislocker-fuse .
+			ln -s ../$DISLOCKERDIR/src/dislocker-metadata .
 
 			;;
-			2)
+		2)
 			clear
 
 			set -eu -o pipefail
 
-pacman -Syu --noconfirm --needed mbedtls fuse
-;;
-3)
-clear
-set -eu -o pipefail
+			pacman -Syu --noconfirm --needed mbedtls fuse
+			;;
+		3)
+			clear
+			set -eu -o pipefail
 
-
-		apt-get -y install gcc cmake make libfuse-dev libmbedtls-dev ruby-dev && apt-get -y install gcc cmake make libfuse-dev libpolarssl-dev ruby-dev
-		;;
+			apt-get -y install gcc cmake make libfuse-dev libmbedtls-dev ruby-dev && apt-get -y install gcc cmake make libfuse-dev libpolarssl-dev ruby-dev
+			;;
 		esac
 		;;
-21)
-				echo "[.21.] -> A series of practical tools for ELF files "
+	21)
+		echo "[.21.] -> A series of practical tools for ELF files "
 		echo -e "${blue}[+] Enter package options ${NC}"
 		git clone --depth 1 https://github.com/BR903/ELFkickers
-cd ELFkickers
-make -j $(nproc)
-cd ..
-mv ELFkickers/bin ./bin
-			;;
-		22)
-				echo "[.22.] -> A small ELF file analyzer "
+		cd ELFkickers
+		make -j $(nproc)
+		cd ..
+		mv ELFkickers/bin ./bin
+		;;
+	22)
+		echo "[.22.] -> A small ELF file analyzer "
 		echo -e "${blue}[+] Enter package options ${NC}"
 
 		echo -e "${blue}**********Choose installation version************${NC}"
@@ -1391,57 +1388,57 @@ mv ELFkickers/bin ./bin
 		1)
 			clear
 			wget http://www.elfparser.com/release/elfparser_x86_64_1.4.0.deb
-dpkg -x elfparser_x86_64_1.4.0.deb .
-mkdir -p bin
-mv usr/local/bin/elfparser bin/
-rm -rf usr
-;;
-2)
-clear
-set -eu -o pipefail
+			dpkg -x elfparser_x86_64_1.4.0.deb .
+			mkdir -p bin
+			mv usr/local/bin/elfparser bin/
+			rm -rf usr
+			;;
+		2)
+			clear
+			set -eu -o pipefail
 
-apt-get install -y libqt5widgets5
-;;
+			apt-get install -y libqt5widgets5
+			;;
 
-23)
-				echo "[.23.] -> Tool for creating MD5 conflict binary files "
-		echo -e "${blue}[+] Enter package options ${NC}"
-		wget http://www.mscs.dal.ca/~selinger/md5collision/downloads/evilize-0.2.tar.gz
-tar zvxf evilize-0.2.tar.gz
-cd evilize-0.2
-make -j $(nproc)
-cd ..
-mkdir bin
-cd bin
-ln -s ../evilize-0.2/evilize .
-ln -s ../evilize-0.2/md5coll .
-;;
-24)
-				echo "[.24.] -> Digital forensics "
-		echo -e "${blue}[+] Enter package options ${NC}"
-		
-git clone --depth 1 https://github.com/kholia/exetractor-clone.git
+		23)
+			echo "[.23.] -> Tool for creating MD5 conflict binary files "
+			echo -e "${blue}[+] Enter package options ${NC}"
+			wget http://www.mscs.dal.ca/~selinger/md5collision/downloads/evilize-0.2.tar.gz
+			tar zvxf evilize-0.2.tar.gz
+			cd evilize-0.2
+			make -j $(nproc)
+			cd ..
+			mkdir bin
+			cd bin
+			ln -s ../evilize-0.2/evilize .
+			ln -s ../evilize-0.2/md5coll .
+			;;
+		24)
+			echo "[.24.] -> Digital forensics "
+			echo -e "${blue}[+] Enter package options ${NC}"
 
-mkdir bin
-cd bin
-ln -s ../exetractor-clone/ArchiveViewer.py ../exetractor-clone/ArchiveExtractor.py ../exetractor-clone/exetractor.py .
-cd ..
-;;
-25)
-				echo "[.25.] -> Generate two files with the same md5 value "
-		echo -e "${blue}[+] Enter package options ${NC}"
-		[ -e fastcoll ] || git clone https://github.com/upbit/clone-fastcoll fastcoll
-cd fastcoll
-make
+			git clone --depth 1 https://github.com/kholia/exetractor-clone.git
 
-cd ..
-mkdir bin
-cp fastcoll/fastcoll bin
-;;
-esac
-;;
+			mkdir bin
+			cd bin
+			ln -s ../exetractor-clone/ArchiveViewer.py ../exetractor-clone/ArchiveExtractor.py ../exetractor-clone/exetractor.py .
+			cd ..
+			;;
 		25)
-				echo "[.25.] -> A small ELF file analyzer "
+			echo "[.25.] -> Generate two files with the same md5 value "
+			echo -e "${blue}[+] Enter package options ${NC}"
+			[ -e fastcoll ] || git clone https://github.com/upbit/clone-fastcoll fastcoll
+			cd fastcoll
+			make
+
+			cd ..
+			mkdir bin
+			cp fastcoll/fastcoll bin
+			;;
+		esac
+		;;
+	25)
+		echo "[.25.] -> A small ELF file analyzer "
 		echo -e "${blue}[+] Enter package options ${NC}"
 
 		echo -e "${blue}**********Choose installation version************${NC}"
@@ -1454,31 +1451,31 @@ esac
 		1)
 			clear
 			git clone --depth=1 https://github.com/nccgroup/featherduster.git
-ctf-tools-pip install --upgrade -e featherduster
+			ctf-tools-pip install --upgrade -e featherduster
 
-mkdir bin || true
-cd bin
-cat > featherduster <<EOF
+			mkdir bin || true
+			cd bin
+			cat >featherduster <<EOF
 #!/bin/sh
 exec python $(realpath ../featherduster/featherduster.py) "\$@"
 EOF
-chmod +x featherduster
-;;
-2)
-clear
-set -eu -o pipefail
+			chmod +x featherduster
+			;;
+		2)
+			clear
+			set -eu -o pipefail
 
-apt-get -y install libgmp3-dev libncurses5-dev
-;;
-3)
-clear
-ctf-tools-pip uninstall -y featherduster || true
+			apt-get -y install libgmp3-dev libncurses5-dev
+			;;
+		3)
+			clear
+			ctf-tools-pip uninstall -y featherduster || true
 
-rm ../bin/featherduster
-;;
-esac
-;;
-26)
+			rm ../bin/featherduster
+			;;
+		esac
+		;;
+	26)
 		echo "[.25.] -> A small ELF file analyzer "
 		echo -e "${blue}[+] Enter package options ${NC}"
 
@@ -1492,36 +1489,35 @@ esac
 		1)
 			clear
 			git clone --depth 1 https://github.com/mirror/firmware-mod-kit.git
-cd firmware-mod-kit/src
-./configure
-make
-cd ../..
+			cd firmware-mod-kit/src
+			./configure
+			make
+			cd ../..
 
-mkdir -p bin
-for i in firmware-mod-kit/*.sh
-do
-	echo "$(dirname $(readlink -m $0))/$i \"\$@\"" > bin/$(basename $i)
-	chmod 755 bin/$(basename $i)
-done
+			mkdir -p bin
+			for i in firmware-mod-kit/*.sh; do
+				echo "$(dirname $(readlink -m $0))/$i \"\$@\"" >bin/$(basename $i)
+				chmod 755 bin/$(basename $i)
+			done
 
-sed -i -e "s/SUDO=\"sudo\"/SUDO=\"\"/" firmware-mod-kit/*.sh
-;;
-2)
-clear
-set -eu -o pipefail
+			sed -i -e "s/SUDO=\"sudo\"/SUDO=\"\"/" firmware-mod-kit/*.sh
+			;;
+		2)
+			clear
+			set -eu -o pipefail
 
-pacman -Syu --noconfirm --needed zlib xz python2-magic
+			pacman -Syu --noconfirm --needed zlib xz python2-magic
 
-;;
-3)
-clear
-set -eu -o pipefail
+			;;
+		3)
+			clear
+			set -eu -o pipefail
 
-apt-get -y install liblzma-dev python-magic zlib1g-dev
-;;
-esac
-;;
-27)
+			apt-get -y install liblzma-dev python-magic zlib1g-dev
+			;;
+		esac
+		;;
+	27)
 		echo "[.27.] -> A small ELF file analyzer "
 		echo -e "${blue}[+] Enter package options ${NC}"
 		echo -e "${blue}**********Choose installation version************${NC}"
@@ -1533,30 +1529,30 @@ esac
 		1)
 			clear
 			ctf-tools-pip3 install --upgrade 'git+https://github.com/ALSchwalm/foresight.git'
-;;
-2)
-clear
-ctf-tools-pip3 uninstall -y foresight || true
-;;
-			28)
-				echo "[.28.] -> Tool for creating MD5 conflict binary files "
-		echo -e "${blue}[+] Enter package options ${NC}"
-wget https://web.eecs.utk.edu/~plank/plank/papers/CS-07-593/galois.tar
+			;;
+		2)
+			clear
+			ctf-tools-pip3 uninstall -y foresight || true
+			;;
+		28)
+			echo "[.28.] -> Tool for creating MD5 conflict binary files "
+			echo -e "${blue}[+] Enter package options ${NC}"
+			wget https://web.eecs.utk.edu/~plank/plank/papers/CS-07-593/galois.tar
 
-mkdir -p galois
-cd galois
-tar xvf ../galois.tar
-make
-cd ..
+			mkdir -p galois
+			cd galois
+			tar xvf ../galois.tar
+			make
+			cd ..
 
-mkdir -p bin
-cd bin
-ln -s ../galois/{gf_basic_tester,gf_div,gf_ilog,gf_inverse,gf_log,gf_mult,gf_xor,gf_xor_tester} .
-cd ..
-;;
-esac
-;;
-29)
+			mkdir -p bin
+			cd bin
+			ln -s ../galois/{gf_basic_tester,gf_div,gf_ilog,gf_inverse,gf_log,gf_mult,gf_xor,gf_xor_tester} .
+			cd ..
+			;;
+		esac
+		;;
+	29)
 		echo "[.29.] -> binutils is a set of binary tools "
 		echo -e "${blue}[+] Enter package options ${NC}"
 		echo -e "${blue}**********Choose installation version************${NC}"
@@ -1569,68 +1565,68 @@ esac
 		case $Selects in
 		1)
 			clear
-set -e -o pipefail
+			set -e -o pipefail
 
-find_latest_gdb_version() {
-    git ls-remote --tags git://sourceware.org/git/binutils-gdb.git \
-        | grep -v users \
-        | grep -v '{}' \
-        | grep -oh 'gdb-[0-9]\{1,2\}\.[0-9]\{1,2\}\(\.[0-9]\{1,2\}\(\.[0-9]\{1,2\}\)\?\)\?-release' \
-        | sort --version-sort -r \
-        | sed 's/gdb-//g' \
-        | sed 's/-release//g' \
-        | head -n 1
-}
+			find_latest_gdb_version() {
+				git ls-remote --tags git://sourceware.org/git/binutils-gdb.git |
+					grep -v users |
+					grep -v '{}' |
+					grep -oh 'gdb-[0-9]\{1,2\}\.[0-9]\{1,2\}\(\.[0-9]\{1,2\}\(\.[0-9]\{1,2\}\)\?\)\?-release' |
+					sort --version-sort -r |
+					sed 's/gdb-//g' |
+					sed 's/-release//g' |
+					head -n 1
+			}
 
-VERSION=$(find_latest_gdb_version)
-echo $VERSION > gdb_version
+			VERSION=$(find_latest_gdb_version)
+			echo $VERSION >gdb_version
 
-rm -rf "gdb" || true
-curl "https://ftp.gnu.org/gnu/gdb/gdb-$VERSION.tar.gz" | tar xz
-mv "gdb-$VERSION" "gdb"
+			rm -rf "gdb" || true
+			curl "https://ftp.gnu.org/gnu/gdb/gdb-$VERSION.tar.gz" | tar xz
+			mv "gdb-$VERSION" "gdb"
 
-set +x
-# move to ctftools virtual env
-source ctf-tools-venv-activate
-set -x
+			set +x
+			# move to ctftools virtual env
+			source ctf-tools-venv-activate
+			set -x
 
-PREFIX=$(pwd)
+			PREFIX=$(pwd)
 
-pushd ./gdb
-./configure \
-    --prefix=$PREFIX \
-    --with-python=$(which python) \
-    --enable-targets=all \
-    --with-guile=guile-2.0
-make -j $(nproc)
-make install
-# remove build artifacts
-make clean
-popd
+			pushd ./gdb
+			./configure \
+				--prefix=$PREFIX \
+				--with-python=$(which python) \
+				--enable-targets=all \
+				--with-guile=guile-2.0
+			make -j $(nproc)
+			make install
+			# remove build artifacts
+			make clean
+			popd
 
-# reduce binary size a little...
-strip bin/gdb || true
-strip bin/gdbserver || true
-			;;	
-			2)
+			# reduce binary size a little...
+			strip bin/gdb || true
+			strip bin/gdbserver || true
+			;;
+		2)
 			clear
 			set -eu -o pipefail
 
-pacman -Syu --needed --noconfirm texinfo guile2.0
+			pacman -Syu --needed --noconfirm texinfo guile2.0
 			;;
-			3)
+		3)
 			clear
 			set -eu -o pipefail
 
-apt-get -y install texinfo guile-2.0-dev
-;;
-4)
-clear
-dnf install -y texinfo
+			apt-get -y install texinfo guile-2.0-dev
 			;;
-esac
+		4)
+			clear
+			dnf install -y texinfo
 			;;
-			30)
+		esac
+		;;
+	30)
 		echo "[.30.] ->  gdb-heap - Extensions to gdb for debugging dynamic memory allocation. "
 		echo -e "${blue}[+] Enter package options ${NC}"
 		echo -e "${blue}**********Choose installation version************${NC}"
@@ -1644,11 +1640,11 @@ esac
 			clear
 			git clone --depth=1 https://github.com/rogerhu/gdb-heap || true
 
-cd gdb-heap
-# make sure gdbinit exists
-touch ~/.gdbinit
-if ! grep "init-gdb-heap" ~/.gdbinit; then
-    cat >> ~/.gdbinit <<EOF
+			cd gdb-heap
+			# make sure gdbinit exists
+			touch ~/.gdbinit
+			if ! grep "init-gdb-heap" ~/.gdbinit; then
+				cat >>~/.gdbinit <<EOF
 
 ####
 # added by ctf-tools
@@ -1661,36 +1657,36 @@ end
 ####
 
 EOF
-fi
-;;
-2)
-clear
-apt-get install -y libc6-dbg
-;;
-3)
-clear
-dnf install -y dnf-plugins-core
-dnf debuginfo-install -y glibc
+			fi
 			;;
-						31)
-				echo "[.31.] -> GEF "
-		echo -e "${blue}[+] Enter package options ${NC}"
-set -eu -o pipefail
+		2)
+			clear
+			apt-get install -y libc6-dbg
+			;;
+		3)
+			clear
+			dnf install -y dnf-plugins-core
+			dnf debuginfo-install -y glibc
+			;;
+		31)
+			echo "[.31.] -> GEF "
+			echo -e "${blue}[+] Enter package options ${NC}"
+			set -eu -o pipefail
 
-git clone --depth 1 https://github.com/hugsy/gef.git
+			git clone --depth 1 https://github.com/hugsy/gef.git
 
-mkdir bin
-cat > bin/gdb-gef <<EOF
+			mkdir bin
+			cat >bin/gdb-gef <<EOF
 #!/bin/sh
 exec gdb -q -ex init-gef "\$@"
 EOF
-chmod +rx bin/gdb-gef
+			chmod +rx bin/gdb-gef
 
-cd gef
-# make sure gdbinit exists
-touch ~/.gdbinit
-if ! grep "init-gef" ~/.gdbinit; then
-    cat >> ~/.gdbinit <<EOF
+			cd gef
+			# make sure gdbinit exists
+			touch ~/.gdbinit
+			if ! grep "init-gef" ~/.gdbinit; then
+				cat >>~/.gdbinit <<EOF
 
 ####
 # added by ctf-tools
@@ -1703,11 +1699,11 @@ end
 ####
 
 EOF
-fi
-;;
-esac
-;;
-			32)
+			fi
+			;;
+		esac
+		;;
+	32)
 		echo "[.32.] ->  "
 		echo -e "${blue}[+] Enter package options ${NC}"
 		echo -e "${blue}**********Choose installation version************${NC}"
@@ -1719,8 +1715,8 @@ esac
 		1)
 			clear
 			;;
-			esac
-			;;	
+		esac
+		;;
 	esac
 }
 
