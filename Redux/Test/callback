@@ -1,0 +1,33 @@
+#!/bin/bash
+
+# declare scheduler
+
+first() {
+    echo "a. To next floor."
+    read -p "Return to exit =>" select
+    if [[ $select == "a" ]]; then
+        echo "First"
+        second
+        $FUNCNAME
+    fi
+}
+
+second() {
+    echo "a. To next floor."
+    read -p "Return to back =>" choic
+    if [[ $choic == 'a' ]]; then
+        echo "Second"
+        third
+        $FUNCNAME
+    fi
+}
+
+third() {
+    echo "a. To next floor."
+    read -p "Return to back =>" chiocen
+    if [[ $chiocen == 'a' ]]; then
+        echo "Third"
+    fi
+}
+
+first
