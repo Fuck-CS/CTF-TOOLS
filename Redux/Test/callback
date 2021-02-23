@@ -1,33 +1,54 @@
 #!/bin/bash
 
-# declare scheduler
+# 繁琐的自举得以返回，需优化
+
+declare scheduler
 
 first() {
     echo "a. To next floor."
-    read -p "Return to exit =>" select
-    if [[ $select == "a" ]]; then
-        echo "First"
-        second
-        $FUNCNAME
-    fi
+    read -p "Return to exit 1=>" select
+    case $select in
+		'a')
+	        echo "First"
+			second
+			$FUNCNAME
+			;;
+    	'b')
+			echo "Test1"
+			$FUNCNAME
+			;;
+	esac
 }
 
 second() {
     echo "a. To next floor."
-    read -p "Return to back =>" choic
-    if [[ $choic == 'a' ]]; then
-        echo "Second"
-        third
-        $FUNCNAME
-    fi
+    read -p "Return to back 2=>" choic
+    case $choic in
+		'a')
+        	echo "Second"
+			third
+			$FUNCNAME
+			;;
+		'b')
+			echo "Test2"
+			$FUNCNAME
+			;;
+	esac
 }
 
 third() {
     echo "a. To next floor."
-    read -p "Return to back =>" chiocen
-    if [[ $chiocen == 'a' ]]; then
-        echo "Third"
-    fi
+    read -p "Return to back 3=>" chioc
+    case $chioc in
+		'a')
+        	echo "Third3"
+			$FUNCNAME
+			;;
+    	'b')
+			echo "Test3"
+			$FUNCNAME
+			;;
+	esac
 }
 
 first
